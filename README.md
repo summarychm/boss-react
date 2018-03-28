@@ -15,4 +15,7 @@
 * [redux-thunk](https://github.com/gaearon/redux-thunk) 和 [react-redux](https://github.com/reactjs/react-redux)和 [babel-plugin-transform-decorators-legacy](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy)[装饰器插件]
 * [react-router-dom](https://github.com/ReactTraining/react-router/)
 * [axios](https://github.com/axios/axios)
+* [nodemon](https://github.com/remy/nodemon)
+* []()
+* []()
 * []()

@@ -1,0 +1,10 @@
+.logo_container {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.logo_container img{
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
