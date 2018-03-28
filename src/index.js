@@ -1,8 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { createStore, applyMiddleware, compose } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+import reducers from "./reducer";
+import "./config";
+import Login from "./container/login";
+import Register from "./container/register";
+
+const reduxDevTools = window.devToolsExtension
+  ? window.devToolsExtension()
+  : () => {};
+const store = createStore(
+  reducers,
+  compose(applyMiddleware(thunk), reduxDevTools)
+);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <div>
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+      </div>
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById("root")
+);
