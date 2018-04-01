@@ -2,6 +2,7 @@ import React from "react";
 import {List, InputItem, Radio, WingBlank, WhiteSpace, Button} from 'antd-mobile';
 
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
 import {register} from '../../redux/user.redux';
 
 import Logo from '../../component/Logo';
@@ -25,7 +26,7 @@ class Register extends React.Component {
             <div>
                 <Logo title={"注册页面"}/>
                 {this.props.msg && <p className="error-msg">{this.props.msg}</p>}
-
+                {this.props.redirectTo && <Redirect to={this.props.redirectTo}/>}
                 <InputItem onChange={v => this.handleChange('name', v)}>用户名</InputItem>
                 <InputItem type="password" onChange={v => this.handleChange('pwd', v)}>密码</InputItem>
                 <InputItem type="password" onChange={v => this.handleChange('repeatPwd', v)}>确认密码</InputItem>

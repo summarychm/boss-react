@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const DB_URL = 'mongodb://localhost:27017/boos';
 mongoose.connect(DB_URL);
 
+//数据库模型
 const models = {
     user: {
         'name': {type: String, 'require': true},

@@ -16,6 +16,6 @@
 * [react-router-dom](https://github.com/ReactTraining/react-router/)
 * [axios](https://github.com/axios/axios)
 * [nodemon](https://github.com/remy/nodemon)
-* []()
+* [utility](https://github.com/node-modules/utility) 字符串加解密模块
 * []()
 * []()

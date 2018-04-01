@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
-
+import {connect} from 'react-redux';
+import {loadData} from '../../redux/user.redux';
 
 @withRouter
+@connect(null, {loadData})
 class AuthRoute extends React.PureComponent {
     componentDidMount() {
         const publicList = ['/login', '/register'];
@@ -17,20 +19,16 @@ class AuthRoute extends React.PureComponent {
             let {status, data} = res;
             const {history} = this.props;
             if (status === 200) {
-                if (data.code === 0) {
-
+                if (data.code == 0) {
+                    this.props.loadData(res.data.data);
                 } else {
                     //登录失败或未登录
                     history.push('/login');
                 }
             }
-            console.log(res.data);
         })
-
-
         //用户的type是boss还是牛人
         //用户是否已经完善了个人信息
-
     }
 
     render() {
