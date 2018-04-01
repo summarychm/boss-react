@@ -4,16 +4,14 @@ import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile';
 import Logo from '../../component/Logo';
 
 
-class Login extends React.Component {
+class Login extends React.PureComponent {
     constructor(props) {
         super(props);
     }
-
     render() {
         return (
             <div>
-                <Logo/>
-                <h2>登录页面</h2>
+                <Logo title={"登录页面"}/>
                 <WingBlank>
                     <List>
                         <InputItem>用户名</InputItem>
@@ -28,7 +26,6 @@ class Login extends React.Component {
         );
     }
     register = () => {
-        console.log(this.props);
         this.props.history.push('/register');
     }
 }
