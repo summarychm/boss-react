@@ -5,17 +5,11 @@ import {Redirect} from 'react-router-dom';
 
 import {login} from '../../redux/user.redux';
 import Logo from '../../component/Logo';
+import ImoocForm from '../ImoocFrom';
 
 @connect(state => state.user, {login})
+@ImoocForm
 class Login extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            pwd: ''
-        }
-    }
-
     render() {
         return (
             <div>
@@ -24,11 +18,11 @@ class Login extends React.PureComponent {
                 {(this.props.redirectTo && this.props.redirectTo !== 'login') && <Redirect to={this.props.redirectTo}/>}
                 <WingBlank>
                     <List>
-                        <InputItem onChange={v => this.handleChange('name', v)}>用户名</InputItem>
+                        <InputItem onChange={v => this.props.handleChange('name', v)}>用户名</InputItem>
                         <WhiteSpace/>
                         <InputItem
                             type={'password'}
-                            onChange={v => this.handleChange('pwd', v)}>密码</InputItem>
+                            onChange={v => this.props.handleChange('pwd', v)}>密码</InputItem>
                     </List>
                     <Button type="primary" onClick={this.handleLogin}>登录</Button>
                     <WhiteSpace/>
@@ -37,15 +31,8 @@ class Login extends React.PureComponent {
             </div>
         );
     }
-
-    //保存用户更改
-    handleChange = (key, val) => {
-        this.setState({
-            [key]: val
-        })
-    }
     handleLogin = () => {
-        this.props.login(this.state);
+        this.props.login(this.props.state);
     }
     register = () => {
         this.props.history.push('/register');
