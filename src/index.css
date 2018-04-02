@@ -1,27 +1,31 @@
-.error-msg{
+.error-msg {
     color: red;
-    padding-left:10px;
+    padding-left: 10px;
+    padding-top: 10px;
 }
-.avatarHeader{
+
+.avatarHeader {
     height: 40px;
     padding-left: 10px;
 }
-.avatarHeader img{
+
+.avatarHeader img {
     height: 30px;
     width: 30px;
 }
-[role="button"],.am-tab-bar-tab{
+
+[role="button"], .am-tab-bar-tab {
     cursor: pointer;
 }
 
-.am-tab-bar{
+.am-tabs-tab-bar-wrap {
     position: fixed;
-    bottom:0;
+    bottom: 0;
     width: 100%;
+    height: auto;
 }
-.fixed-header.am-navbar{
-}
+
 /*文本域换行*/
-.am-card-body{
+.am-card-body, .am-list-content p {
     white-space: pre;
 }

@@ -6,9 +6,9 @@ import {NavBar} from 'antd-mobile';
 import NavLinkBar from '../../component/NavLinkBar';
 import Boss from '../../container/Boss';
 import Genius from '../../container/Genius';
+import User from '../../component/User';
 
 const Msg = () => <p>消息列表</p>;
-const User = () => <p>个人中心</p>;
 
 
 @connect(state => state, {})

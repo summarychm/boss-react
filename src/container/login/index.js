@@ -21,7 +21,7 @@ class Login extends React.PureComponent {
             <div>
                 <Logo title={"登录页面"}/>
                 {this.props.msg && <p className="error-msg">{this.props.msg}</p>}
-                {this.props.redirectTo && <Redirect to={this.props.redirectTo}/>}
+                {(this.props.redirectTo && this.props.redirectTo !== 'login') && <Redirect to={this.props.redirectTo}/>}
                 <WingBlank>
                     <List>
                         <InputItem onChange={v => this.handleChange('name', v)}>用户名</InputItem>

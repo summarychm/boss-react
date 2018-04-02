@@ -21,7 +21,7 @@
 * [nodemon](https://github.com/remy/nodemon)
 * [utility](https://github.com/node-modules/utility) 字符串加解密模块
 * [prop-types](https://github.com/facebook/prop-types) 组件传递参数验证
-* []()
+* [browser-cookie](https://github.com/voltace/browser-cookies) 操作cookie
 
 
 ## 运行步骤

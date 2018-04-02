@@ -6,6 +6,7 @@ import {getRedirectPath} from '../util';
 const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
 const LOAD_DATA = "LOAD_DATA";
+const LOG_OUT = 'LOG_OUT';
 
 //初始化数据
 const initState = {
@@ -23,7 +24,7 @@ function errorMsg(msg) {
 
 // 用户验证通过action creator
 function authSuccess(obj) {
-    const {pwd,...data}=obj;
+    const {pwd, ...data} = obj;
     return {type: AUTH_SUCCESS, payload: data};
 }
 
@@ -36,6 +37,8 @@ export function user(state = initState, action) {
             return {...state, isAuth: false, msg: action.msg}
         case LOAD_DATA:
             return {...state, ...action.payload};
+        case LOG_OUT:
+            return {...initState,redirectTo:'login'}
         default:
             return state;
     }
@@ -91,4 +94,8 @@ export function update(data) {
                     dispatch(errorMsg(res.data.msg));
             })
     }
+}
+
+export function logoutSubmit() {
+    return {type: LOG_OUT}
 }
