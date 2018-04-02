@@ -6,7 +6,7 @@ import {Redirect} from 'react-router-dom';
 import {login} from '../../redux/user.redux';
 import Logo from '../../component/Logo';
 
-@connect(state=>state.user,{login})
+@connect(state => state.user, {login})
 class Login extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -26,7 +26,9 @@ class Login extends React.PureComponent {
                     <List>
                         <InputItem onChange={v => this.handleChange('name', v)}>用户名</InputItem>
                         <WhiteSpace/>
-                        <InputItem onChange={v => this.handleChange('pwd', v)}>密码</InputItem>
+                        <InputItem
+                            type={'password'}
+                            onChange={v => this.handleChange('pwd', v)}>密码</InputItem>
                     </List>
                     <Button type="primary" onClick={this.handleLogin}>登录</Button>
                     <WhiteSpace/>

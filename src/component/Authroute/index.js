@@ -18,14 +18,10 @@ class AuthRoute extends React.PureComponent {
         axios.get('/user/info').then(res => {
             let {status, data} = res;
             const {history} = this.props;
-            if (status === 200) {
-                if (data.code == 0) {
-                    this.props.loadData(res.data.data);
-                } else {
-                    //登录失败或未登录
-                    history.push('/login');
-                }
-            }
+            if (status === 200 && data.code == 0)
+                this.props.loadData(res.data.data);
+            else //登录失败或未登录
+                history.push('/login');
         })
         //用户的type是boss还是牛人
         //用户是否已经完善了个人信息
