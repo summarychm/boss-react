@@ -13,10 +13,15 @@
 [role="button"],.am-tab-bar-tab{
     cursor: pointer;
 }
+
 .am-tab-bar{
     position: fixed;
     bottom:0;
     width: 100%;
 }
 .fixed-header.am-navbar{
+}
+/*文本域换行*/
+.am-card-body{
+    white-space: pre;
 }

@@ -32,8 +32,8 @@ class Register extends React.Component {
                 <InputItem type="password" onChange={v => this.handleChange('repeatPwd', v)}>确认密码</InputItem>
                 <WhiteSpace/>
                 <List>
-                    <RadioItem key={"genius"} checked={this.state.type === "genius"}
-                               onChange={() => this.handleChange('type', 'genius')}>牛人
+                    <RadioItem key={"Genius"} checked={this.state.type === "Genius"}
+                               onChange={() => this.handleChange('type', 'Genius')}>牛人
                     </RadioItem>
                     <RadioItem key={"boos"} checked={this.state.type === "boss"}
                                onChange={() => this.handleChange('type', 'boss')}>BOSS

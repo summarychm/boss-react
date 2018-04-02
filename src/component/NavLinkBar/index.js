@@ -16,7 +16,6 @@ export default class NavLinkBar extends React.PureComponent {
 
     render() {
         const navList = this.props.data.filter(v => !v.hide);
-        console.log(navList);
         const pathname = this.props.location.pathname;
         return (<TabBar>
             {navList.map(item => (

@@ -10,9 +10,10 @@ const _filter = {'pwd': 0, '__v': 0}; //过滤条件
 //查找用户合集
 Router.get('/list', function (req, res) {
     //User.remove({},function (e,d) {});
+    const {type} = req.query;
     //查找user实体
-    User.find({}, _filter, function (err, doc) {
-        return res.json(doc);
+    User.find({type}, _filter, function (err, doc) {
+        return res.json({code: 0, data: doc});
     })
 });
 

@@ -2,10 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Switch, Route} from 'react-router-dom';
 import {NavBar} from 'antd-mobile';
-import NavLinkBar from '../../component/NavLinkBar';
 
-const Boss = () => <p>Boss列表</p>;
-const Genius = () => <p>牛人列表</p>;
+import NavLinkBar from '../../component/NavLinkBar';
+import Boss from '../../container/Boss';
+import Genius from '../../container/Genius';
+
 const Msg = () => <p>消息列表</p>;
 const User = () => <p>个人中心</p>;
 
@@ -28,7 +29,7 @@ export default class Dashboard extends React.PureComponent {
             hide: user.type === 'boss'
         }, {
             path: '/genius',
-            text: 'genius',
+            text: 'Genius',
             icon: 'genius',
             title: "牛人列表",
             component: Genius,
@@ -46,9 +47,9 @@ export default class Dashboard extends React.PureComponent {
             title: "个人中心",
             component: User,
         }];
-
+        let title = navList.find(value => value.path === location.pathname) && navList.find(value => value.path === location.pathname).title;
         return (<div>
-            <NavBar className={'fixed-header'}>{navList.find(value => value.path === location.pathname).title}</NavBar>
+            <NavBar className={'fixed-header'}>{title}</NavBar>
             <div>
                 <Switch>
                     {navList.map(item => (
