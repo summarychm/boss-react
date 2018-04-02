@@ -21,7 +21,7 @@ class GeniusInfo extends React.PureComponent {
         const redirectTo = this.props.redirectTo;
         const path = this.props.location.pathname;
         return (<div>
-            {(redirectTo && redirectTo != path) && <Redirect to={this.props.redirectTo}></Redirect>}
+            {(redirectTo && redirectTo !== path) && <Redirect to={this.props.redirectTo}></Redirect>}
             <NavBar>牛人完善信息页面</NavBar>
             <AvatarSelector selectAvatar={text => this.handleChange('avatar', text)}></AvatarSelector>
             <List>

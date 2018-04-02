@@ -20,12 +20,12 @@ class AvatarSelector extends React.Component {
             icon: require(`./img/${value}.png`),
             text: value
         }));
-
+        const {icon, text} = this.state;
         return (<div>
             <div className={"avatarHeader"}>
                 <span>已选择头像:</span>
                 {this.state.icon &&
-                <img src={this.state.icon}/>}
+                <img src={icon} title={text} alt={text}/>}
             </div>
             <List>
                 <Grid data={avatarList} columnNum={5}

@@ -24,6 +24,7 @@ function errorMsg(msg) {
 // 用户验证通过action creator
 function authSuccess(obj) {
     const {pwd,...data}=obj;
+    console.log("data",data);
     return {type: AUTH_SUCCESS, payload: data};
 }
 

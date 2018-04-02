@@ -10,3 +10,13 @@
     height: 30px;
     width: 30px;
 }
+[role="button"],.am-tab-bar-tab{
+    cursor: pointer;
+}
+.am-tab-bar{
+    position: fixed;
+    bottom:0;
+    width: 100%;
+}
+.fixed-header.am-navbar{
+}
