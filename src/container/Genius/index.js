@@ -10,6 +10,6 @@ export default class Genius extends React.PureComponent {
     }
 
     render() {
-        return (<UserCard userList={this.props.chatUser.userList}/>)
+        return (<UserCard userList={this.props.chatUser.userList} history={this.props.history}/>)
     }
 }

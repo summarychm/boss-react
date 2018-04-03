@@ -13,7 +13,7 @@ export default class User extends React.PureComponent {
             <div>
                 <Result
                     img={<img
-                        src={require(`../AvatarSelector/img/${this.props.avatar}.png`)}
+                        src={require(`../AvatarSelector/img/${avatar}.png`)}
                         style={{width: 50, height: 50}}
                         alt=""
                     />}
@@ -42,7 +42,7 @@ export default class User extends React.PureComponent {
             {
                 text: '确认',
                 onPress: () => {
-                    //  BrowserCookie.erase('userid');//清除cookie
+                    BrowserCookie.erase('userid');//清除cookie
                     this.props.logoutSubmit();
                     Toast.info('退出成功!', 1);
                 }

@@ -22,7 +22,11 @@
 * [utility](https://github.com/node-modules/utility) 字符串加解密模块
 * [prop-types](https://github.com/facebook/prop-types) 组件传递参数验证
 * [browser-cookie](https://github.com/voltace/browser-cookies) 操作cookie
-
+* [Socket.io](https://github.com/socketio/socket.io)
+* [Socket.io-client](https://github.com/socketio/socket.io-client)
+* []()
+* []()
+* []()
 
 ## 运行步骤
 * git clone https://github.com/summarychm/boss-react.git
@@ -30,3 +34,4 @@
 * 新开终端进程,运行 yarn mongoose
 * 新开终端进程,运行 yarn node
 * 新开终端进程,运行 yarn start
+

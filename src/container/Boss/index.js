@@ -11,6 +11,6 @@ export default class Boss extends React.PureComponent {
     }
 
     render() {
-        return(<UserCard userList={this.props.chatUser.userList} />)
+        return(<UserCard userList={this.props.chatUser.userList} history={this.props.history} />)
     }
 }

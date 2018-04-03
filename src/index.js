@@ -15,7 +15,7 @@ import GeniusInfo from './container/geniusinfo';
 import Login from "./container/login";
 import Register from "./container/register";
 import Dashboard from './component/Dashboard';
-
+import Chat from './component/Chat';
 
 const reduxDevTools = window.devToolsExtension ? window.devToolsExtension() : () => {
 };
@@ -34,6 +34,7 @@ ReactDOM.render(
                     <Route path="/geniusinfo" component={GeniusInfo}></Route>
                     <Route path="/login" component={Login}/>
                     <Route path="/register" component={Register}/>
+                    <Route path="/chat/:user" component={Chat} />
                     <Route component={Dashboard}/>
                 </Switch>
             </div>
