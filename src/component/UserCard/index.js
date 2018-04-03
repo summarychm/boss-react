@@ -8,7 +8,7 @@ const UserCard = ({userList, history}) => {
         {userList.map(item => {
             return (item.avatar && <Card
                 key={item._id}
-                onClick={() => history.push(`/chat/${item.name}`)}>
+                onClick={() => history.push(`/chat/${item._id}`)}>
                 <Card.Header
                     title={item.title}
                     thumb={require(`../AvatarSelector/img/${item.avatar}.png`)}

@@ -4,6 +4,8 @@ const Router = express.Router();
 
 const model = require('./model');
 const User = model.getModel('user');
+const Chat = model.getModel('chat');
+
 const _filter = {'pwd': 0, '__v': 0}; //过滤条件
 
 
@@ -43,14 +45,6 @@ Router.post('/update', function (req, res) {
     })
 })
 
-//检查用户
-function checkUser(req, res, callBackFn) {
-    const userid = req.cookies.userid;
-    if (!userid)
-        return res.json({code: 1});
-    callBackFn && callBackFn(userid);
-}
-
 //登录接口
 Router.post('/login', function (req, res) {
     const {name, pwd} = req.body;
@@ -80,6 +74,27 @@ Router.post('/register', function (req, res) {
         })
     })
 })
+
+//获取消息列表
+Router.get('/getmsglist', function (req, res) {
+    checkUser(req, res, function (userid) {
+        const query = {'$or': [{from: userid}, {to: userid}]};
+        Chat.find(query, function (err, doc) {
+            if (!err) {
+                return res.json({codePointAt: 0, msgs: doc});
+            }
+
+        })
+    })
+});
+
+//检查用户
+function checkUser(req, res, callBackFn) {
+    const userid = req.cookies.userid;
+    if (!userid)
+        return res.json({code: 1});
+    callBackFn && callBackFn(userid);
+}
 
 //双层md5加盐
 function md5Pwd(pwd) {
