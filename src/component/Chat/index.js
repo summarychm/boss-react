@@ -1,5 +1,5 @@
 import React from 'react';
-import {List, InputItem, NavBar, Icon} from 'antd-mobile';
+import {List, InputItem, NavBar, Icon, Grid} from 'antd-mobile';
 import io from 'socket.io-client';
 import {connect} from 'react-redux';
 import {getMsgList, sendMsg, recvMsg} from '../../redux/chat.redux';
@@ -10,15 +10,20 @@ const socket = io("ws://127.0.0.1:9093");
 export default class Chat extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {text: "", msg: []};
+        this.state = {showEmoji: false, text: "", msg: []};
+        this.emoji = '😀,😁,😂,🤣,😃,😄,😅,😆,😉,😊,😋,😎,😍,😘,😗,😙,😚,🙂,🤗,🤔,😐,😑,😶,🙄,😏,😣,😥,😮,🤐,😯,😪,😫,😴,😌,😛,😜,😝,🤤,😒,😓,😔,😕,🙃,🤑,😲,🙁,😖,😞,😟,😤,😢,😭,😦,😧,😨,😩,😬,😰,😱,😳,😵,😡,😠,😷,🤒,🤕,🤢,🤧,😇,🤠,🤡,🤥'.split(",").map(item => ({
+            text: item
+        }));
     }
 
     componentDidMount() {
+
         //如果没有msg则进行获取胡监听socket
         if (!this.props.chat.chatmsg.length) {
             this.props.getMsgList();//获取消息列表
             this.props.recvMsg();//接收最新的信息
         }
+        this.fixCarousel();
     }
 
     render() {
@@ -29,7 +34,7 @@ export default class Chat extends React.Component {
         }
         const {name, avatar} = users[userId];
         const chatid = getChatId(userId, this.props.user._id);
-        const msgs = this.props.chat.chatmsg.filter(value => value.chatid == chatid); //消息列表
+        const msgs = this.props.chat.chatmsg.filter(value => value.chatid === chatid); //消息列表
         return (<div id="chat-page" className="chat-page">
             <NavBar mode={'dark'}
                     icon={<Icon type={"left"}/>}
@@ -67,11 +72,38 @@ export default class Chat extends React.Component {
                         placeholder='请输入要发送的信息'
                         value={this.state.text}
                         onChange={val => this.setState({text: val})}
-                        extra={<span onClick={this.handleSubmit}>发送</span>}
+                        extra={
+                            <div>
+                                <span style={{marginRight: 40}}
+                                      onClick={() => {
+                                          this.setState({showEmoji: !this.state.showEmoji});
+                                          this.fixCarousel();
+                                      }}>😍</span>
+                                <span onClick={this.handleSubmit}>发送</span>
+                            </div>
+                        }
                     >信息</InputItem>
                 </List>
+                {this.state.showEmoji
+                && <Grid data={this.emoji}
+                         columnNum={9}
+                         carouselMaxRow={4}
+                         isCarousel
+                         onClick={el => {
+                             this.setState({
+                                 text: this.state.text + el.text
+                             })
+                         }}
+                />}
             </div>
         </div>)
+    }
+
+    //修正跑马灯显示bug
+    fixCarousel() {
+        setTimeout(() => {
+            window.dispatchEvent(new Event("resize"));
+        }, 0);
     }
 
     //发送信息

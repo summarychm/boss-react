@@ -13,7 +13,7 @@ const MSG_READ = 'MSG_READ';
 //初始state
 const initiState = {
     chatmsg: [],
-    users:{},
+    users: {},
     unread: 0,
 }
 
@@ -25,7 +25,7 @@ export function chat(state = initiState, action) {
                 ...state,
                 chatmsg: action.payload.msgs,
                 users: action.payload.users,
-                unread: action.payload.msgs.filter(i => !i.read).length
+                unread: action.payload.msgs.filter(i => !i.read && i.to === action.payload.userid).length
             };
         case MSG_RECV:
             return {...state, chatmsg: [...state.chatmsg, action.payload], unread: state.unread + 1};
@@ -37,17 +37,18 @@ export function chat(state = initiState, action) {
 }
 
 //获取msg列表的Action Creator
-function msgListActionCreator(msgs, users) {
-    return {type: MSG_LIST, payload: {msgs, users}};
+function msgListActionCreator(msgs, users, userid) {
+    return {type: MSG_LIST, payload: {msgs, users, userid}};
 }
 
 //获取msg列表的外暴事件
 export function getMsgList() {
-    return dispatch => {
+    return (dispatch, getState) => {
         axios.get('/user/getmsglist')
             .then(res => {
                 if (res.status === 200 && res.data.code === 0) {
-                    dispatch(msgListActionCreator(res.data.msgs, res.data.users));
+                    let userid = getState().user._id;
+                    dispatch(msgListActionCreator(res.data.msgs, res.data.users, userid));
                 }
             })
     }
@@ -67,10 +68,10 @@ function recvMsgActionCreator(data) {
 
 // 接收msg信息
 export function recvMsg() {
-    return function (dispatch) {
+    return function (dispatch,getState) {
         socket.on('recvmsg', function () {
             //重新出发getMsgList事件
-            getMsgList()(dispatch);
+            getMsgList()(dispatch,getState);
         })
     }
 }
