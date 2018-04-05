@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Switch, Route} from 'react-router-dom';
 import {NavBar} from 'antd-mobile';
 
+import {getMsgList, recvMsg} from '../../redux/chat.redux';
 import NavLinkBar from '../../component/NavLinkBar';
 import Boss from '../../container/Boss';
 import Genius from '../../container/Genius';
@@ -11,12 +12,18 @@ import User from '../../component/User';
 const Msg = () => <p>消息列表</p>;
 
 
-@connect(state => state, {})
+@connect(state => state, {getMsgList, recvMsg})
 export default class Dashboard extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {};
     }
+
+    componentDidMount() {
+        this.props.getMsgList();
+        this.props.recvMsg();
+    }
+
 
     render() {
         const {location, user} = this.props;

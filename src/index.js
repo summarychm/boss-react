@@ -17,8 +17,7 @@ import Register from "./container/register";
 import Dashboard from './component/Dashboard';
 import Chat from './component/Chat';
 
-const reduxDevTools = window.devToolsExtension ? window.devToolsExtension() : () => {
-};
+const reduxDevTools = window.devToolsExtension ? window.devToolsExtension() :f=>f;
 const store = createStore(reducers,
     compose(applyMiddleware(thunk), reduxDevTools)
 );

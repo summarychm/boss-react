@@ -3,3 +3,8 @@ export function getRedirectPath({type, avatar}) {
     (!avatar) && (url += 'info');
     return url;
 }
+
+//获取chatid
+export function getChatId(userId, targetId) {
+    return [userId, targetId].sort().join("_");
+}

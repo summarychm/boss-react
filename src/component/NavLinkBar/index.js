@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {TabBar} from 'antd-mobile';
+import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 @withRouter
+@connect(state=>state.chat)
 export default class NavLinkBar extends React.PureComponent {
     static propTypes = {
         data: PropTypes.array.isRequired,
@@ -13,7 +15,6 @@ export default class NavLinkBar extends React.PureComponent {
         super(props);
         this.state = {};
     }
-
     render() {
         const navList = this.props.data.filter(v => !v.hide);
         const pathname = this.props.location.pathname;
@@ -26,7 +27,7 @@ export default class NavLinkBar extends React.PureComponent {
                     selectedIcon={{uri: require(`./img/${item.icon}-active.png`)}}
                     selected={pathname === item.path}
                     onPress={() => this.props.history.push(item.path)}
-                    badge={(Math.random() * 10).toFixed(0)}
+                    badge={item.path==="/msg"&&this.props.unread}
                 >
                 </TabBar.Item>
             ))}

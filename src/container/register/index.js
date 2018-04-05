@@ -28,10 +28,10 @@ class Register extends React.Component {
                 <InputItem type="password" onChange={v => this.props.handleChange('repeatPwd', v)}>确认密码</InputItem>
                 <WhiteSpace/>
                 <List>
-                    <RadioItem key={"Genius"} checked={this.state.type === "Genius"}
-                               onChange={() => this.props.handleChange('type', 'Genius')}>牛人
+                    <RadioItem key={"Genius"} checked={this.props.type === "genius"}
+                               onChange={() => this.props.handleChange('type', 'genius')}>牛人
                     </RadioItem>
-                    <RadioItem key={"boos"} checked={this.state.type === "boss"}
+                    <RadioItem key={"boos"} checked={this.props.type === "boss"}
                                onChange={() => this.props.handleChange('type', 'boss')}>BOSS
                     </RadioItem>
                 </List>

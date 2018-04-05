@@ -1,6 +1,7 @@
 const express = require("express");
 const utils = require('utility');
 const Router = express.Router();
+const mongoose = require('mongoose');
 
 const model = require('./model');
 const User = model.getModel('user');
@@ -78,13 +79,19 @@ Router.post('/register', function (req, res) {
 //获取消息列表
 Router.get('/getmsglist', function (req, res) {
     checkUser(req, res, function (userid) {
-        const query = {'$or': [{from: userid}, {to: userid}]};
-        Chat.find(query, function (err, doc) {
-            if (!err) {
-                return res.json({codePointAt: 0, msgs: doc});
-            }
-
-        })
+        let users = {};
+        User.find({}, {_id: 1, name: 1, avatar: 1}, function (err, doc) {
+            doc.forEach(v => {
+                users[v._id] = {_id: v._id, name: v.name, avatar: v.avatar};
+            });
+        });
+        Chat.find({'$or': [{from: userid}, {to: userid}]})
+            //.populate('to', {pwd: 0, title: 0})
+            .exec(function (err, doc) {
+                if (err)
+                    return res.json({code: 1, msg: "后台出错!", doc});
+                return res.json({code: 0, msgs: doc, users: users});
+            });
     })
 });
 

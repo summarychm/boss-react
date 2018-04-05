@@ -8,7 +8,14 @@ const UserCard = ({userList, history}) => {
         {userList.map(item => {
             return (item.avatar && <Card
                 key={item._id}
-                onClick={() => history.push(`/chat/${item._id}`)}>
+                onClick={() => history.push({
+                    pathname: `/chat/${item._id}`,
+                    query: {
+                        userid: item._id,
+                        name: item.name,
+                        avatar:item.avatar,
+                    }
+                })}>
                 <Card.Header
                     title={item.title}
                     thumb={require(`../AvatarSelector/img/${item.avatar}.png`)}
@@ -16,11 +23,12 @@ const UserCard = ({userList, history}) => {
                 >
                 </Card.Header>
                 <Card.Body>
-                    公司:{item.company}
+                    {item.type === "boss" && <div>公司:{item.company}</div>}
                     <WhiteSpace/>
                     {item.desc}
                     <WhiteSpace/>
-                    薪资:{item.money}
+                    {item.type === "boss" && <div>薪资:{item.money}</div>}
+
                 </Card.Body>
             </Card>)
         })}

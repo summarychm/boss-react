@@ -38,7 +38,7 @@ export default class User extends React.PureComponent {
 
     handleSignOut = () => {
         Modal.alert('警告', '是否退出登录?', [
-            {text: '取消', onPress: () => console.log('cancel')},
+            {text: '取消', onPress: () => console.wring('cancel')},
             {
                 text: '确认',
                 onPress: () => {
