@@ -22,21 +22,14 @@ export default class Chat extends React.Component {
             this.props.getMsgList();//获取消息列表
             this.props.recvMsg();//接收最新的信息socket
         }
+    }
 
+    componentWillUnmount() {
         //组件销毁时更改当前聊天对象的消息全部改为已读.
         const targetId = this.props.match.params.user;
         const userId = this.props.user._id;
-        console.log(targetId, userId,this.props);
         this.props.readMsg(targetId, userId);
     }
-
-    // componentWillUnmount() {
-    //     //组件销毁时更改当前聊天对象的消息全部改为已读.
-    //     const targetId = this.props.match.params.user;
-    //     const userId = this.props.user._id;
-    //     console.log(targetId, userId,this.props);
-    //     this.props.readMsg(targetId, userId);
-    // }
 
     render() {
         const userId = this.props.match.params.user;

@@ -26,6 +26,7 @@ ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <div>
+                {/*权限验证与路由跳转组件*/}
                 <AuthRoute></AuthRoute>
                 <Switch>
                     {/*判断用户信息,进行路由跳转*/}

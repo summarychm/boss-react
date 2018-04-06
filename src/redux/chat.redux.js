@@ -21,7 +21,6 @@ const initiState = {
 export function chat(state = initiState, action) {
     switch (action.type) {
         case MSG_LIST:
-            console.log("action.payload.userid", action.payload.userid);
             return {
                 ...state,
                 chatmsg: action.payload.msgs,
@@ -31,7 +30,16 @@ export function chat(state = initiState, action) {
         case MSG_RECV:
             return {...state, chatmsg: [...state.chatmsg, action.payload], unread: state.unread + 1};
         case MSG_READ:
-            return state;
+            const {targetId, userId} = action.payload;
+            return {
+                ...state,
+                //将所有的未读状态都改为了已读.
+                chatmsg: state.chatmsg.map(v => ({
+                    ...v,
+                    read: (v.from === targetId && v.to === userId) ? true : v.read
+                })),
+                unread: state.unread - action.payload.num
+            };
         default:
             return state;
     }
@@ -84,10 +92,10 @@ function msgRead({targetId, userId, num}) {
 // targetId 聊天对象 userid 当前用户
 export function readMsg(targetId, userId) {
     return dispatch => {
-        axios.post(`/user/readmsg`, {targetId,userId})
+        axios.post(`/user/readmsg`, {targetId, userId})
             .then(res => {
                 if (res.status === 200 && res.data.code === 0) {
-                    dispatch(msgRead({targetId,userId, num: res.data.num}))
+                    dispatch(msgRead({targetId, userId, num: res.data.num}))
                 }
             })
     }

@@ -39,7 +39,7 @@ export default class MsgHistory extends React.PureComponent {
                     let lastMsg = item.slice(-1)[0];
                     //聊天对象id
                     const targetId = lastMsg.from === userId ? lastMsg.to : lastMsg.from;
-                    const unreadNum = item.filter(v => (!v.read && v.to === userId));
+                    const unreadNum = item.filter(v => (!v.read && v.to === userId && v.from === targetId));
                     if (!usersInfo[targetId])
                         return null;
                     return (<Item key={lastMsg._id}

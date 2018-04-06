@@ -104,7 +104,8 @@ Router.post('/readmsg', function (req, res) {
             // doc {n:2,nModified:1,ok:1} {n:总共查询到N条数据,nModified:受影响行数,ok:修改成功数量}
             if (err)
                 return res.json({code: 1, msg: '修改失败!'});
-            return res.json({code: 0, num: 1});
+            // nModified 修改了多少行
+            return res.json({code: 0, num: doc.nModified});
         });
 })
 
