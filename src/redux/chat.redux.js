@@ -21,6 +21,7 @@ const initiState = {
 export function chat(state = initiState, action) {
     switch (action.type) {
         case MSG_LIST:
+            console.log("action.payload.userid", action.payload.userid);
             return {
                 ...state,
                 chatmsg: action.payload.msgs,
@@ -68,11 +69,27 @@ function recvMsgActionCreator(data) {
 
 // 接收msg信息
 export function recvMsg() {
-    return function (dispatch,getState) {
-        socket.on('recvmsg', function () {
-            //重新出发getMsgList事件
-            getMsgList()(dispatch,getState);
+    return dispatch => {
+        socket.on('recvmsg', function (data) {
+            dispatch(recvMsgActionCreator(data))
         })
+    }
+}
+
+//消息已读 action creator
+function msgRead({targetId, userId, num}) {
+    return {type: MSG_READ, payload: {targetId, userId, num}};
+}
+
+// targetId 聊天对象 userid 当前用户
+export function readMsg(targetId, userId) {
+    return dispatch => {
+        axios.post(`/user/readmsg`, {targetId,userId})
+            .then(res => {
+                if (res.status === 200 && res.data.code === 0) {
+                    dispatch(msgRead({targetId,userId, num: res.data.num}))
+                }
+            })
     }
 }
 

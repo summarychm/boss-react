@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const DB_URL = 'mongodb://localhost:27017/boos';
 mongoose.connect(DB_URL);
 
+
+
 //数据库模型
 const SchemaModel = {
     user: {
@@ -16,8 +18,8 @@ const SchemaModel = {
     },
     chat: {
         'chatid': {'type': String, 'require': true},
-        'from': {'type': String, 'require': true,ref:'user'},
-        'to': {'type': String, 'require': true,ref:'user'},
+        'from': {'type': String, 'require': true, ref: 'user'},
+        'to': {'type': String, 'require': true, ref: 'user'},
         'read': {'type': Boolean, default: false},
         'content': {'type': String, 'require': true},
         'create_time': {'type': Number, 'default': +new Date()}

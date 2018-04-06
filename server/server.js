@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 
-const model=require('./model');
-const Chat=model.getModel('chat');
+const model = require('./model');
+const Chat = model.getModel('chat');
 
 const app = express();
 
@@ -21,11 +21,11 @@ io.on('connection', function (socket) {
     //监听当前socket连接的通信
     socket.on("sendmsg", function (data) {
         const {from, to, msg} = data;
-        const chatid = [from,to].sort().join("_");
-        Chat.create({chatid,from:from, to,'content':msg},function (err,data) {
+        const chatid = [from, to].sort().join("_");
+        Chat.create({chatid, from: from, to, 'content': msg}, function (err, data) {
             // 使用io.emit进行全局socket广播
-            io.emit('recvmsg', Object.assign({},data._doc));
-        })
+            io.emit('recvmsg', Object.assign({}, data._doc));
+        });
     })
 });
 server.listen(9093, function () {

@@ -18,7 +18,7 @@ const UserCard = ({userList, history}) => {
                 })}>
                 <Card.Header
                     title={item.title}
-                    thumb={require(`../AvatarSelector/img/${item.avatar}.png`)}
+                    thumb={require(`../img/${item.avatar}.png`)}
                     extra={<span>{item.title}</span>}
                 >
                 </Card.Header>

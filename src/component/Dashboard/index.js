@@ -8,8 +8,7 @@ import NavLinkBar from '../../component/NavLinkBar';
 import Boss from '../../container/Boss';
 import Genius from '../../container/Genius';
 import User from '../../component/User';
-
-const Msg = () => <p>消息列表</p>;
+import MsgHistory from '../../component/MsgHistory';
 
 
 @connect(state => state, {getMsgList, recvMsg})
@@ -20,10 +19,12 @@ export default class Dashboard extends React.PureComponent {
     }
 
     componentDidMount() {
-        this.props.getMsgList();
-        this.props.recvMsg();
+        //如果没有msg则进行获取胡监听socket
+        if (!this.props.chat.chatmsg.length) {
+            this.props.getMsgList();//获取消息列表
+            this.props.recvMsg();//接收最新的信息
+        }
     }
-
 
     render() {
         const {location, user} = this.props;
@@ -46,7 +47,7 @@ export default class Dashboard extends React.PureComponent {
             text: '消息',
             icon: 'msg',
             title: "消息列表",
-            component: Msg,
+            component: MsgHistory,
         }, {
             path: '/me',
             text: '我',

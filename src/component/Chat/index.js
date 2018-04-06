@@ -2,11 +2,11 @@ import React from 'react';
 import {List, InputItem, NavBar, Icon, Grid} from 'antd-mobile';
 import io from 'socket.io-client';
 import {connect} from 'react-redux';
-import {getMsgList, sendMsg, recvMsg} from '../../redux/chat.redux';
+import {getMsgList, sendMsg, recvMsg, readMsg} from '../../redux/chat.redux';
 import {getChatId} from "../../util";
 
 const socket = io("ws://127.0.0.1:9093");
-@connect(state => state, {getMsgList, sendMsg, recvMsg})
+@connect(state => state, {getMsgList, sendMsg, recvMsg, readMsg})
 export default class Chat extends React.Component {
     constructor(props) {
         super(props);
@@ -17,14 +17,26 @@ export default class Chat extends React.Component {
     }
 
     componentDidMount() {
-
         //如果没有msg则进行获取胡监听socket
         if (!this.props.chat.chatmsg.length) {
             this.props.getMsgList();//获取消息列表
-            this.props.recvMsg();//接收最新的信息
+            this.props.recvMsg();//接收最新的信息socket
         }
-        this.fixCarousel();
+
+        //组件销毁时更改当前聊天对象的消息全部改为已读.
+        const targetId = this.props.match.params.user;
+        const userId = this.props.user._id;
+        console.log(targetId, userId,this.props);
+        this.props.readMsg(targetId, userId);
     }
+
+    // componentWillUnmount() {
+    //     //组件销毁时更改当前聊天对象的消息全部改为已读.
+    //     const targetId = this.props.match.params.user;
+    //     const userId = this.props.user._id;
+    //     console.log(targetId, userId,this.props);
+    //     this.props.readMsg(targetId, userId);
+    // }
 
     render() {
         const userId = this.props.match.params.user;
@@ -44,14 +56,14 @@ export default class Chat extends React.Component {
             >
                 {`与${name}聊天中`}
                 {users[userId].avatar &&
-                <img src={require(`../AvatarSelector/img/${avatar}.png`)}
+                <img src={require(`../img/${avatar}.png`)}
                      style={{width: 30, height: 30}}
                      alt=""/>}
             </NavBar>
             <List>
 
                 {msgs && msgs.map(items => {
-                    let avatar = require(`../AvatarSelector/img/${users[items.from].avatar}.png`);
+                    let avatar = require(`../img/${users[items.from].avatar}.png`);
                     return items.from === userId //判断是否是我发送的消息
                         ? (items.to && <List.Item
                             key={items._id}

@@ -13,7 +13,7 @@ export default class User extends React.PureComponent {
             <div>
                 <Result
                     img={<img
-                        src={require(`../AvatarSelector/img/${avatar}.png`)}
+                        src={require(`../img/${avatar}.png`)}
                         style={{width: 50, height: 50}}
                         alt=""
                     />}

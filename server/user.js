@@ -12,7 +12,6 @@ const _filter = {'pwd': 0, '__v': 0}; //过滤条件
 
 //查找用户合集
 Router.get('/list', function (req, res) {
-    //User.remove({},function (e,d) {});
     const {type} = req.query;
     //查找user实体
     User.find({type}, _filter, function (err, doc) {
@@ -86,7 +85,6 @@ Router.get('/getmsglist', function (req, res) {
             });
         });
         Chat.find({'$or': [{from: userid}, {to: userid}]})
-            //.populate('to', {pwd: 0, title: 0})
             .exec(function (err, doc) {
                 if (err)
                     return res.json({code: 1, msg: "后台出错!", doc});
@@ -94,6 +92,22 @@ Router.get('/getmsglist', function (req, res) {
             });
     })
 });
+//更改消息的阅读状态为已读
+Router.post('/readmsg', function (req, res) {
+    const {userId, targetId} = req.body;
+    //改为已读状态
+    Chat.update(
+        {from:targetId, to: userId},
+        {'$set': {read: true}},
+        {'multi': true},
+        function (err, doc) {
+            // doc {n:2,nModified:1,ok:1} {n:总共查询到N条数据,nModified:受影响行数,ok:修改成功数量}
+            if (err)
+                return res.json({code: 1, msg: '修改失败!'});
+            return res.json({code: 0, num: 1});
+        });
+})
+
 
 //检查用户
 function checkUser(req, res, callBackFn) {
