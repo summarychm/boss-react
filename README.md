@@ -1,4 +1,3 @@
-# 直聘APP
 
 ## 项目简介
 这个项目是参照BOSS直聘开发的一款直聘类APP,分为BOSS和牛人两大角色.  
@@ -27,14 +26,14 @@ boss消息列表页 | 聊天详情页 | 个人中心页 | 牛人列表页
 
 
 ## 运行步骤
-* git clone https://github.com/summarychm/boss-react.git
-* yarn install
-* 新开终端进程,运行 yarn mongoose
-* 新开终端进程,运行 yarn node
-* 新开终端进程,运行 yarn start
+> git clone https://github.com/summarychm/boss-react.git  
+> yarn install  
+> 新开终端进程,运行 yarn mongoose  
+> 新开终端进程,运行 yarn node  
+> 新开终端进程,运行 yarn start  
 
 
-## 使用的技术栈
+## 使用的第三方类库
 * [antd-mobile](https://github.com/ant-design/ant-design-mobile/) 引入and design UI库
 * [react-app-rewired](https://github.com/timarney/react-app-rewired) 和 [babel-plugin-import](https://github.com/ant-design/babel-plugin-import) Antd-Mobile按需加载
 * [react-redux](https://github.com/reactjs/react-redux) 
