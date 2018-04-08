@@ -28,7 +28,8 @@ export function chat(state = initiState, action) {
                 unread: action.payload.msgs.filter(i => !i.read && i.to === action.payload.userid).length
             };
         case MSG_RECV:
-            return {...state, chatmsg: [...state.chatmsg, action.payload], unread: state.unread + 1};
+        const unread=(action.payload.userid===action.payload.data.to)?1:0;
+            return {...state, chatmsg: [...state.chatmsg, action.payload.data], unread: state.unread + unread};
         case MSG_READ:
             const {targetId, userId} = action.payload;
             return {
@@ -71,15 +72,16 @@ export function sendMsg(from, to, msg) {
 }
 
 //接收消息的action creator
-function recvMsgActionCreator(data) {
-    return {type: MSG_RECV, payload: data};
+function recvMsgActionCreator(data,userid) {
+    return {type: MSG_RECV, payload: {data,userid}};
 }
 
 // 接收msg信息
 export function recvMsg() {
-    return dispatch => {
+    return (dispatch,getState) => {
         socket.on('recvmsg', function (data) {
-            dispatch(recvMsgActionCreator(data))
+            const userid=getState().user._id;            
+            dispatch(recvMsgActionCreator(data,userid))
         })
     }
 }

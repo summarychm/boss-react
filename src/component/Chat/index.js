@@ -1,11 +1,9 @@
 import React from 'react';
 import {List, InputItem, NavBar, Icon, Grid} from 'antd-mobile';
-import io from 'socket.io-client';
 import {connect} from 'react-redux';
 import {getMsgList, sendMsg, recvMsg, readMsg} from '../../redux/chat.redux';
 import {getChatId} from "../../util";
 
-const socket = io("ws://127.0.0.1:9093");
 @connect(state => state, {getMsgList, sendMsg, recvMsg, readMsg})
 export default class Chat extends React.Component {
     constructor(props) {

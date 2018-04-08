@@ -18,21 +18,22 @@ class Register extends React.Component {
 
     render() {
         const RadioItem = Radio.RadioItem;
+        const {handleChange}=this.props;
         return (
             <div>
                 <Logo title={"注册页面"}/>
                 {this.props.msg && <p className="error-msg">{this.props.msg}</p>}
                 {this.props.redirectTo && <Redirect to={this.props.redirectTo}/>}
-                <InputItem onChange={v => this.props.handleChange('name', v)}>用户名</InputItem>
-                <InputItem type="password" onChange={v => this.props.handleChange('pwd', v)}>密码</InputItem>
-                <InputItem type="password" onChange={v => this.props.handleChange('repeatPwd', v)}>确认密码</InputItem>
+                <InputItem onChange={v => handleChange('name', v)}>用户名</InputItem>
+                <InputItem type="password" onChange={v => handleChange('pwd', v)}>密码</InputItem>
+                <InputItem type="password" onChange={v => handleChange('repeatPwd', v)}>确认密码</InputItem>
                 <WhiteSpace/>
                 <List>
-                    <RadioItem key={"Genius"} checked={this.props.type === "genius"}
-                               onChange={() => this.props.handleChange('type', 'genius')}>牛人
+                    <RadioItem key={"Genius"} checked={this.props.state.type === "genius"}
+                               onChange={() => handleChange('type', 'genius')}>牛人
                     </RadioItem>
-                    <RadioItem key={"boos"} checked={this.props.type === "boss"}
-                               onChange={() => this.props.handleChange('type', 'boss')}>BOSS
+                    <RadioItem key={"boos"} checked={this.props.state.type === "boss"}
+                               onChange={() => handleChange('type', 'boss')}>BOSS
                     </RadioItem>
                 </List>
                 <WhiteSpace size="lg"/>
